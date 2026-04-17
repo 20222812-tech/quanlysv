@@ -39,6 +39,7 @@
                         <a class="button button-secondary" href="<?php echo e(route('students.index')); ?>">Sinh viên</a>
                         <a class="button button-secondary" href="<?php echo e(route('subjects.index')); ?>">Học phần</a>
                         <a class="button button-secondary" href="<?php echo e(route('classrooms.index')); ?>">Lớp học</a>
+                        <a class="button button-secondary" href="<?php echo e(route('rooms.index')); ?>">Phòng học</a>
                         <form method="POST" action="<?php echo e(route('logout')); ?>" style="display: inline; margin: 0;">
                             <?php echo csrf_field(); ?>
                             <button type="submit" class="button">Đăng xuất</button>

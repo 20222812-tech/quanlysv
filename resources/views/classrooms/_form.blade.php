@@ -23,6 +23,17 @@
     <input type="text" id="giao_vien" name="giao_vien" value="{{ old('giao_vien', $classroom['giao_vien'] ?? '') }}">
 </div>
 <div class="input-group">
+    <label for="phong_hoc">Phòng học</label>
+    <select id="phong_hoc" name="phong_hoc">
+        <option value="">-- Chọn phòng học --</option>
+        @foreach($rooms ?? [] as $room)
+            <option value="{{ $room['ma_phong'] }}" {{ old('phong_hoc', $classroom['phong_hoc'] ?? '') === $room['ma_phong'] ? 'selected' : '' }}>
+                {{ $room['ma_phong'] }} - {{ $room['ten_phong'] }}
+            </option>
+        @endforeach
+    </select>
+</div>
+<div class="input-group">
     <label for="ghi_chu">Ghi chú</label>
     <textarea id="ghi_chu" name="ghi_chu" rows="3">{{ old('ghi_chu', $classroom['ghi_chu'] ?? '') }}</textarea>
 </div>

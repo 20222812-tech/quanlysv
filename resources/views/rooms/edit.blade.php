@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="card">
-        <h2>Chỉnh sửa lớp học</h2>
+        <h2>Chỉnh sửa phòng học</h2>
 
         @if($errors->any())
             <div class="alert alert-error">
@@ -14,12 +14,12 @@
             </div>
         @endif
 
-        <form action="{{ route('classrooms.update', $classroom['id']) }}" method="POST">
+        <form action="{{ route('rooms.update', $room['id']) }}" method="POST">
             @csrf
             @method('PUT')
-            @include('classrooms._form', ['classroom' => $classroom, 'rooms' => $rooms ?? []])
+            @include('rooms._form', ['room' => $room])
             <input type="submit" value="Lưu" class="button">
-            <a class="button button-secondary" href="{{ route('classrooms.index') }}">Quay lại</a>
+            <a class="button button-secondary" href="{{ route('rooms.index') }}">Quay lại</a>
         </form>
     </div>
 @endsection

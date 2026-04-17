@@ -16,7 +16,7 @@
 
         <form action="{{ route('classrooms.store') }}" method="POST">
             @csrf
-            @include('classrooms._form', ['classroom' => null])
+            @include('classrooms._form', ['classroom' => null, 'rooms' => $rooms ?? []])
             <input type="submit" value="Lưu" class="button">
             <a class="button button-secondary" href="{{ route('classrooms.index') }}">Quay lại</a>
         </form>

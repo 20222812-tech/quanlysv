@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClassroomController;
+use App\Http\Controllers\RoomController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SubjectController;
 use Illuminate\Support\Facades\Route;
@@ -25,4 +26,5 @@ Route::middleware('auth')->group(function () {
     Route::resource('students', StudentController::class)->except(['show']);
     Route::resource('subjects', SubjectController::class)->except(['show']);
     Route::resource('classrooms', ClassroomController::class)->except(['show']);
+    Route::resource('rooms', RoomController::class)->except(['show']);
 });

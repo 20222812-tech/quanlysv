@@ -25,7 +25,7 @@
                     <th>Sĩ số</th>
                     <th>Khóa học</th>
                     <th>Ngành</th>
-                    <th>Giáo viên</th>
+                    <th>Phòng học</th>
                     <th>Hành động</th>
                 </tr>
             </thead>
@@ -37,7 +37,7 @@
                         <td><?php echo e($classroom['si_so']); ?></td>
                         <td><?php echo e($classroom['khoa_hoc']); ?></td>
                         <td><?php echo e($classroom['nganh']); ?></td>
-                        <td><?php echo e($classroom['giao_vien']); ?></td>
+                        <td><?php echo e($classroom['phong_hoc'] ?? 'Chưa xác định'); ?></td>
                         <td>
                             <a class="button button-secondary" href="<?php echo e(route('classrooms.edit', $classroom['id'])); ?>">Sửa</a>
                             <form action="<?php echo e(route('classrooms.destroy', $classroom['id'])); ?>" method="POST" style="display: inline-block; margin-top: 4px;">
