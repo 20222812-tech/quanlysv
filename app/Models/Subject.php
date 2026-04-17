@@ -3,29 +3,27 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Subject extends Model
 {
-    public $timestamps = false;
-
     protected $fillable = [
-        'id',
-        'ma_hp',
-        'ten_hp',
-        'so_tin_chi',
-        'so_tiet_ly_thuyet',
-        'so_tiet_thuc_hanh',
-        'hoc_ky',
-        'nam_hoc',
-        'khoa_phu_trach',
-        'nganh_ap_dung',
-        'loai_hoc_phan',
-        'tien_quyet',
-        'song_hanh',
-        'mo_ta',
-        'ghi_chu',
+        'subject_name',
     ];
 
+    /**
+     * Get all students registered for this subject
+     * @return BelongsToMany
+     */
+    public function students(): BelongsToMany
+    {
+        return $this->belongsToMany(Student::class, 'student_subject')
+                    ->withPivot(['score', 'registered_at']);
+    }
+
+    /**
+     * Mock data for testing (session-based)
+     */
     public static function mockData(): array
     {
         return [

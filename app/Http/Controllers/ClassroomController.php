@@ -50,7 +50,16 @@ class ClassroomController extends Controller
 
     public function create()
     {
-        return view('classrooms.create');
+        $rooms = $this->getRoomData();
+        return view('classrooms.create', ['rooms' => $rooms]);
+    }
+
+    private function getRoomData(): array
+    {
+        if (!session()->has('rooms')) {
+            session(['rooms' => \App\Models\Room::mockData()]);
+        }
+        return session('rooms');
     }
 
     public function store(Request $request)
@@ -62,6 +71,7 @@ class ClassroomController extends Controller
             'khoa_hoc' => 'required|string|max:50',
             'nganh' => 'required|string|max:100',
             'giao_vien' => 'required|string|max:100',
+            'phong_hoc' => 'nullable|string|max:20',
             'ghi_chu' => 'nullable|string|max:255',
         ]);
 
@@ -82,7 +92,8 @@ class ClassroomController extends Controller
             return redirect()->route('classrooms.index')->with('error', 'Lớp học không tồn tại.');
         }
 
-        return view('classrooms.edit', ['classroom' => $classroom]);
+        $rooms = $this->getRoomData();
+        return view('classrooms.edit', ['classroom' => $classroom, 'rooms' => $rooms]);
     }
 
     public function update(Request $request, $id)
@@ -94,6 +105,7 @@ class ClassroomController extends Controller
             'khoa_hoc' => 'required|string|max:50',
             'nganh' => 'required|string|max:100',
             'giao_vien' => 'required|string|max:100',
+            'phong_hoc' => 'nullable|string|max:20',
             'ghi_chu' => 'nullable|string|max:255',
         ]);
 

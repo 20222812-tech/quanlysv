@@ -2,27 +2,58 @@
 
 namespace App\Models;
 
+use App\Models\Scopes\SortByNameScope;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Student extends Model
 {
-    public $timestamps = false;
-
     protected $fillable = [
-        'id',
-        'ma_sv',
-        'ho_ten',
-        'nam_sinh',
-        'so_dt',
-        'email',
-        'dia_chi',
-        'que_quan',
-        'lop',
-        'nganh',
-        'khoa',
-        'ghi_chu',
+        'student_name',
+        'class_id',
+        'is_active',
     ];
 
+    /**
+     * The "booted" method of the model.
+     * Apply global scopes
+     */
+    protected static function booted()
+    {
+        static::addGlobalScope(new SortByNameScope());
+    }
+
+    /**
+     * Get the classroom that the student belongs to
+     * @return BelongsTo
+     */
+    public function classroom(): BelongsTo
+    {
+        return $this->belongsTo(Classroom::class, 'class_id');
+    }
+
+    /**
+     * Get all subjects the student is registered for
+     * @return BelongsToMany
+     */
+    public function subjects(): BelongsToMany
+    {
+        return $this->belongsToMany(Subject::class, 'student_subject')
+                    ->withPivot(['score', 'registered_at']);
+    }
+
+    /**
+     * Local scope: Get only active students
+     */
+    public function scopeActive($query)
+    {
+        return $query->where('is_active', true);
+    }
+
+    /**
+     * Mock data for testing (session-based)
+     */
     public static function mockData(): array
     {
         return [

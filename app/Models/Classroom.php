@@ -3,22 +3,26 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Classroom extends Model
 {
-    public $timestamps = false;
-
     protected $fillable = [
-        'id',
-        'ma_lop',
-        'ten_lop',
-        'si_so',
-        'khoa_hoc',
-        'nganh',
-        'giao_vien',
-        'ghi_chu',
+        'class_name',
     ];
 
+    /**
+     * Get all students in this classroom
+     * @return HasMany
+     */
+    public function students(): HasMany
+    {
+        return $this->hasMany(Student::class, 'class_id');
+    }
+
+    /**
+     * Mock data for testing (session-based)
+     */
     public static function mockData(): array
     {
         return [
@@ -30,6 +34,7 @@ class Classroom extends Model
                 'khoa_hoc' => '2025 - 2026',
                 'nganh' => 'Công nghệ thông tin',
                 'giao_vien' => 'Nguyễn Văn A',
+                'phong_hoc' => 'A101',
                 'ghi_chu' => 'Lớp buổi sáng',
             ],
             [
@@ -40,6 +45,7 @@ class Classroom extends Model
                 'khoa_hoc' => '2025 - 2026',
                 'nganh' => 'Hệ thống thông tin',
                 'giao_vien' => 'Trần Thị B',
+                'phong_hoc' => 'A102',
                 'ghi_chu' => 'Lớp chuyên ngành',
             ],
             [
@@ -50,6 +56,7 @@ class Classroom extends Model
                 'khoa_hoc' => '2025 - 2026',
                 'nganh' => 'Mạng máy tính',
                 'giao_vien' => 'Lê Văn C',
+                'phong_hoc' => 'B201',
                 'ghi_chu' => 'Lớp tối thứ 3',
             ],
             [
@@ -60,6 +67,7 @@ class Classroom extends Model
                 'khoa_hoc' => '2025 - 2026',
                 'nganh' => 'Trí tuệ nhân tạo',
                 'giao_vien' => 'Phạm Thị D',
+                'phong_hoc' => 'B202',
                 'ghi_chu' => 'Lớp có đồ án',
             ],
             [
@@ -70,6 +78,7 @@ class Classroom extends Model
                 'khoa_hoc' => '2025 - 2026',
                 'nganh' => 'Kỹ thuật phần mềm',
                 'giao_vien' => 'Hoàng Văn E',
+                'phong_hoc' => 'C301',
                 'ghi_chu' => 'Lớp thực hành',
             ],
         ];
